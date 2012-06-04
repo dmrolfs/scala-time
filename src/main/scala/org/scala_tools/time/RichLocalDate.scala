@@ -19,7 +19,7 @@ package org.scala_tools.time
 
 import org.joda.time._
 
-class RichLocalDate(underlying: LocalDate) {
+class RichLocalDate(underlying: LocalDate) extends Ordered[LocalDate] {
   def -(period: ReadablePeriod): LocalDate =
     underlying.minus(period)
   def -(builder: DurationBuilder): LocalDate =
@@ -44,4 +44,6 @@ class RichLocalDate(underlying: LocalDate) {
   def withEra(era: Int) = underlying.withEra(era)
   
   def interval = underlying.toInterval
+  
+  def compare( that: LocalDate ): Int = underlying compareTo that
 }

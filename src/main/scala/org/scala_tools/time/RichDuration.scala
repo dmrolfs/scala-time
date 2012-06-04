@@ -29,4 +29,6 @@ class RichDuration(underlying: Duration) {
     underlying.plus(amount)
   def +(amount: ReadableDuration): Duration =
     underlying.plus(amount)
+  def *(factor: Double): Duration = new Duration( (underlying.getMillis.toDouble * factor).toLong )
+  def /(divisor: Double): Duration = new Duration( (underlying.getMillis.toDouble / divisor).toLong )
 }
