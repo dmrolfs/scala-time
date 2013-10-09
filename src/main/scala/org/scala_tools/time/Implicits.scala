@@ -27,8 +27,9 @@ object Implicits extends Implicits
 object BuilderImplicits extends Implicits
 object IntImplicits extends IntImplicits
 object JodaImplicits extends JodaImplicits
+object OrderingImplicits extends OrderingImplicits
 
-trait Implicits extends BuilderImplicits with IntImplicits with JodaImplicits
+trait Implicits extends BuilderImplicits with IntImplicits with JodaImplicits with OrderingImplicits
 
 trait BuilderImplicits {
   implicit def forcePeriod(builder: DurationBuilder): Period =
@@ -71,4 +72,10 @@ trait JodaImplicits {
   implicit def RichReadableInterval(in: ReadableInterval): RichReadableInterval = new RichReadableInterval(in)
   implicit def RichReadablePartial(rp: ReadablePartial): RichReadablePartial = new RichReadablePartial(rp)
   implicit def RichReadablePeriod(per: ReadablePeriod): RichReadablePeriod = new RichReadablePeriod(per)
+}
+
+trait OrderingImplicits {
+  implicit val compareLocalDate = new Ordering[LocalDate] {
+    def compare( lhs: LocalDate, rhs: LocalDate ) = lhs compareTo rhs
+  }
 }
